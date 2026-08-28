@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#08080c">
+<meta name="description" content="Une histoire écrite par Salomon pour Keren.">
+<title>Keren × Salomon — Notre histoire</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#07070b;
+  --surface:#111117;
+  --surface2:#17171f;
+  --text:#f7f4f6;
+  --muted:#a6a0a6;
+  --soft:#746f75;
+  --pink:#ff4f81;
+  --pink2:#ff8daa;
+  --purple:#8d62ff;
+  --line:rgba(255,255,255,.09);
+  --shadow:0 30px 100px rgba(0,0,0,.45);
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 50% 10%,rgba(255,57,111,.13),transparent 30%),
+    radial-gradient(circle at 10% 90%,rgba(108,63,255,.10),transparent 30%),
+    var(--bg);
+  color:var(--text);
+  font-family:"DM Sans",sans-serif;
+  overflow:hidden;
+}
+
+button{
+  font:inherit;
+}
+
+svg{
+  display:block;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+.background{
+  position:fixed;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+  z-index:0;
+}
+
+.glow{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(90px);
+  opacity:.15;
+  animation:glowMove 12s ease-in-out infinite alternate;
+}
+
+.glow.one{
+  width:280px;
+  height:280px;
+  background:#ff2e6d;
+  left:-100px;
+  top:10%;
+}
+
+.glow.two{
+  width:300px;
+  height:300px;
+  background:#743cff;
+  right:-120px;
+  bottom:0;
+  animation-delay:3s;
+}
+
+@keyframes glowMove{
+  from{transform:translate(0,0) scale(1)}
+  to{transform:translate(30px,-25px) scale(1.12)}
+}
+
+.particle{
+  position:fixed;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,255,255,.55);
+  pointer-events:none;
+  z-index:1;
+  animation:particleUp linear forwards;
+}
+
+@keyframes particleUp{
+  from{
+    transform:translateY(0);
+    opacity:0;
+  }
+  15%{opacity:.7}
+  to{
+    transform:translateY(-110vh);
+    opacity:0;
+  }
+}
+
+/* =========================
+   APP
+========================= */
+
+#app{
+  position:relative;
+  z-index:2;
+  min-height:100vh;
+}
+
+.page{
+  position:absolute;
+  inset:0;
+  min-height:100vh;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:35px 20px 90px;
+  overflow-y:auto;
+}
+
+.page.active{
+  display:flex;
+  animation:pageIn .75s cubic-bezier(.2,.8,.2,1);
+}
+
+@keyframes pageIn{
+  from{
+    opacity:0;
+    transform:translateX(35px) scale(.985);
+  }
+  to{
+    opacity:1;
+    transform:translateX(0) scale(1);
+  }
+}
+
+.container{
+  width:min(900px,100%);
+  margin:auto;
+  text-align:center;
+}
+
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  color:#aaa3aa;
+  text-transform:uppercase;
+  letter-spacing:4px;
+  font-size:10px;
+  margin-bottom:24px;
+}
+
+.eyebrow::before,
+.eyebrow::after{
+  content:"";
+  width:25px;
+  height:1px;
+  background:rgba(255,255,255,.18);
+}
+
+h1,h2,h3{
+  font-family:"Playfair Display",serif;
+}
+
+h1{
+  font-size:clamp(58px,14vw,125px);
+  line-height:.9;
+  letter-spacing:-5px;
+}
+
+.gradient{
+  background:linear-gradient(120deg,#fff 20%,#ff8dab 70%,#c98cff);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+.subtitle{
+  max-width:620px;
+  margin:28px auto 0;
+  color:var(--muted);
+  font-size:16px;
+  line-height:1.8;
+}
+
+/* =========================
+   ICON
+========================= */
+
+.icon-circle{
+  width:76px;
+  height:76px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  margin:0 auto 30px;
+  background:rgba(255,255,255,.035);
+  border:1px solid var(--line);
+  box-shadow:0 0 70px rgba(255,55,110,.12);
+}
+
+.icon-circle svg{
+  width:31px;
+  height:31px;
+  stroke:var(--pink2);
+  fill:none;
+  stroke-width:1.5;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.actions{
+  margin-top:40px;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:12px;
+}
+
+.primary{
+  border:0;
+  padding:15px 24px;
+  border-radius:999px;
+  cursor:pointer;
+  color:#fff;
+  background:linear-gradient(135deg,#ff5685,#ff315f);
+  box-shadow:0 18px 50px rgba(255,55,105,.23);
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  transition:.25s;
+}
+
+.primary:hover{
+  transform:translateY(-3px);
+  box-shadow:0 22px 60px rgba(255,55,105,.35);
+}
+
+.primary:active{
+  transform:scale(.97);
+}
+
+.primary svg{
+  width:18px;
+  height:18px;
+  stroke:currentColor;
+  fill:none;
+  stroke-width:2;
+}
+
+.secondary{
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.035);
+  color:#d0cbd0;
+  padding:13px 20px;
+  border-radius:999px;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.secondary:hover{
+  background:rgba(255,255,255,.07);
+  transform:translateY(-2px);
+}
+
+/* =========================
+   PAGE 1
+========================= */
+
+.hero-name{
+  margin-top:5px;
+}
+
+.hero-name span{
+  display:block;
+}
+
+.date-label{
+  margin-top:32px;
+  color:#777179;
+  font-size:12px;
+  letter-spacing:2px;
+}
+
+/* =========================
+   PAGE 2 DATE
+========================= */
+
+.date-card{
+  position:relative;
+  max-width:600px;
+  margin:25px auto;
+  padding:48px 28px;
+  border:1px solid var(--line);
+  border-radius:32px;
+  background:linear-gradient(
+    145deg,
+    rgba(255,255,255,.06),
+    rgba(255,255,255,.025)
+  );
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+
+.date-number{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(80px,20vw,150px);
+  line-height:.8;
+  background:linear-gradient(135deg,#fff,#ff769a);
+  -webkit-background-clip:text;
+  color:transparent;
+  background-clip:text;
+}
+
+.date-month{
+  margin-top:22px;
+  font-size:13px;
+  letter-spacing:7px;
+  color:#aaa2a8;
+}
+
+.date-text{
+  max-width:480px;
+  margin:30px auto 0;
+  color:#b2abb1;
+  line-height:1.9;
+}
+
+/* =========================
+   PAGE 3 CARDS
+========================= */
+
+.cards{
+  margin-top:40px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.love-card{
+  text-align:left;
+  padding:25px;
+  border:1px solid var(--line);
+  border-radius:24px;
+  background:rgba(255,255,255,.035);
+  cursor:pointer;
+  transition:.3s;
+}
+
+.love-card:hover{
+  transform:translateY(-7px);
+  border-color:rgba(255,100,140,.3);
+  background:rgba(255,255,255,.055);
+}
+
+.card-icon{
+  width:44px;
+  height:44px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  background:rgba(255,79,129,.09);
+  margin-bottom:22px;
+}
+
+.card-icon svg{
+  width:21px;
+  height:21px;
+  stroke:var(--pink2);
+  fill:none;
+  stroke-width:1.6;
+}
+
+.love-card h3{
+  font-size:23px;
+  margin-bottom:12px;
+}
+
+.love-card p{
+  color:#9e989e;
+  font-size:14px;
+  line-height:1.7;
+}
+
+/* =========================
+   PAGE 4 FEELINGS
+========================= */
+
+.feeling-box{
+  max-width:700px;
+  margin:35px auto 0;
+  padding:40px 28px;
+  border:1px solid var(--line);
+  border-radius:30px;
+  background:rgba(255,255,255,.035);
+}
+
+.feeling-box p{
+  color:#c4bec4;
+  line-height:2;
+  font-size:16px;
+}
+
+.big-line{
+  margin-top:30px;
+  font-family:"Playfair Display",serif;
+  font-size:clamp(28px,6vw,48px);
+  color:#ff88a6;
+}
+
+/* =========================
+   PAGE 5 TIMELINE
+========================= */
+
+.timeline{
+  max-width:650px;
+  margin:45px auto 0;
+  text-align:left;
+  position:relative;
+}
+
+.timeline::before{
+  content:"";
+  position:absolute;
+  left:20px;
+  top:0;
+  bottom:0;
+  width:1px;
+  background:rgba(255,255,255,.1);
+}
+
+.timeline-item{
+  position:relative;
+  padding-left:65px;
+  margin-bottom:35px;
+}
+
+.timeline-dot{
+  position:absolute;
+  left:11px;
+  top:5px;
+  width:19px;
+  height:19px;
+  border-radius:50%;
+  background:var(--bg);
+  border:1px solid var(--pink);
+  box-shadow:0 0 18px rgba(255,79,129,.4);
+}
+
+.timeline-item small{
+  color:var(--pink2);
+  letter-spacing:2px;
+}
+
+.timeline-item h3{
+  font-size:25px;
+  margin:8px 0;
+}
+
+.timeline-item p{
+  color:#99939a;
+  line-height:1.7;
+}
+
+/* =========================
+   PAGE 6 LETTER
+========================= */
+
+.letter{
+  max-width:700px;
+  margin:auto;
+  padding:42px 30px;
+  border:1px solid var(--line);
+  border-radius:30px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.055),
+      rgba(255,255,255,.025)
+    );
+  box-shadow:var(--shadow);
+  text-align:left;
+}
+
+.letter-top{
+  text-align:center;
+  margin-bottom:35px;
+}
+
+.letter h2{
+  font-size:45px;
+}
+
+.letter p{
+  color:#bcb6bc;
+  line-height:1.95;
+  margin-bottom:22px;
+}
+
+.letter .signature{
+  margin-top:35px;
+  text-align:right;
+  font-family:"Playfair Display",serif;
+  font-size:28px;
+  color:#fff;
+}
+
+/* =========================
+   PAGE 7 PROMISE
+========================= */
+
+.promise{
+  max-width:650px;
+  margin:35px auto;
+}
+
+.promise-line{
+  padding:22px 0;
+  border-bottom:1px solid var(--line);
+  color:#bdb7bd;
+  line-height:1.8;
+}
+
+.promise-line strong{
+  display:block;
+  color:#fff;
+  font-family:"Playfair Display",serif;
+  font-size:23px;
+  margin-bottom:6px;
+}
+
+/* =========================
+   PAGE 8 FINAL
+========================= */
+
+.final-names{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:20px;
+  flex-wrap:wrap;
+  margin-top:30px;
+}
+
+.final-names span{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(50px,12vw,100px);
+}
+
+.cross{
+  font-family:"DM Sans",sans-serif!important;
+  font-size:30px!important;
+  color:#ff7194;
+}
+
+.final-message{
+  margin:30px auto 0;
+  max-width:560px;
+  color:#aaa3aa;
+  line-height:1.9;
+}
+
+.final-heart{
+  margin:35px auto;
+  width:100px;
+  height:100px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  border:1px solid rgba(255,90,130,.25);
+  background:rgba(255,70,120,.06);
+  animation:pulse 2.4s ease-in-out infinite;
+}
+
+.final-heart svg{
+  width:40px;
+  height:40px;
+  fill:rgba(255,79,129,.12);
+  stroke:#ff7598;
+  stroke-width:1.4;
+}
+
+@keyframes pulse{
+  0%,100%{
+    transform:scale(1);
+    box-shadow:0 0 0 rgba(255,79,129,0);
+  }
+  50%{
+    transform:scale(1.08);
+    box-shadow:0 0 50px rgba(255,79,129,.18);
+  }
+}
+
+/* =========================
+   NAVIGATION
+========================= */
+
+.progress{
+  position:fixed;
+  left:50%;
+  bottom:22px;
+  transform:translateX(-50%);
+  z-index:20;
+  display:flex;
+  gap:6px;
+  padding:8px 10px;
+  border:1px solid var(--line);
+  background:rgba(10,10,14,.72);
+  backdrop-filter:blur(15px);
+  border-radius:999px;
+}
+
+.progress-dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#4a464b;
+  transition:.3s;
+}
+
+.progress-dot.active{
+  width:22px;
+  border-radius:10px;
+  background:var(--pink);
+}
+
+.nav-top{
+  position:fixed;
+  top:18px;
+  left:20px;
+  right:20px;
+  z-index:20;
+  display:flex;
+  justify-content:space-between;
+  pointer-events:none;
+}
+
+.brand{
+  font-size:11px;
+  letter-spacing:3px;
+  color:#858087;
+}
+
+.page-count{
+  font-size:11px;
+  color:#858087;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:22px;
+  background:rgba(4,4,7,.88);
+  backdrop-filter:blur(18px);
+}
+
+.modal.show{
+  display:flex;
+  animation:fade .3s ease;
+}
+
+@keyframes fade{
+  from{opacity:0}
+  to{opacity:1}
+}
+
+.modal-card{
+  width:min(520px,100%);
+  padding:35px 28px;
+  border:1px solid var(--line);
+  border-radius:28px;
+  background:#111117;
+  box-shadow:var(--shadow);
+  text-align:center;
+}
+
+.modal-card h2{
+  font-size:35px;
+  margin-bottom:18px;
+}
+
+.modal-card p{
+  color:#aaa3aa;
+  line-height:1.8;
+}
+
+.modal-close{
+  margin-top:25px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:700px){
+
+  .page{
+    padding:70px 18px 90px;
+  }
+
+  .cards{
+    grid-template-columns:1fr;
+  }
+
+  .love-card{
+    padding:22px;
+  }
+
+  h1{
+    letter-spacing:-3px;
+  }
+
+  .subtitle{
+    font-size:15px;
+  }
+
+  .date-card{
+    padding:40px 20px;
+  }
+
+  .letter{
+    padding:30px 22px;
+  }
+
+  .letter h2{
+    font-size:38px;
+  }
+
+  .progress{
+    bottom:15px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,
+  *::before,
+  *::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    scroll-behavior:auto!important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="background">
+  <div class="glow one"></div>
+  <div class="glow two"></div>
+</div>
+
+<div id="app">
+
+<!-- ================= PAGE 1 ================= -->
+
+<section class="page active" data-page="1">
+  <div class="container">
+
+    <div class="icon-circle">
+      <svg viewBox="0 0 24 24">
+        <path d="M20.8 8.7c0 5.5-8.8 10.3-8.8 10.3S3.2 14.2 3.2 8.7A4.7 4.7 0 0 1 12 6.4a4.7 4.7 0 0 1 8.8 2.3Z"/>
+      </svg>
+    </div>
+
+    <div class="eyebrow">Un message de Salomon</div>
+
+    <h1 class="hero-name">
+      Pour
+      <span class="gradient">Keren</span>
+    </h1>
+
+    <p class="subtitle">
+      Certaines choses sont difficiles à dire dans une simple conversation.
+      Alors j'ai décidé de prendre mon temps et de te raconter ce que
+      tu représentes pour moi.
+    </p>
+
+    <div class="actions">
+      <button class="primary" onclick="goTo(2)">
+        Ouvrir mon cœur
+        <svg viewBox="0 0 24 24">
+          <path d="M5 12h14"/>
+          <path d="m13 6 6 6-6 6"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="date-label">Une histoire entre Keren & Salomon</div>
+
+  </div>
+</section>
+
+
+<!-- ================= PAGE 2 ================= -->
+
+<section class="page" data-page="2">
+  <div class="container">
+
+    <div class="eyebrow">Une date importante</div>
+
+    <h2 style="font-size:clamp(45px,10vw,75px);">
+      Tout commence ici.
+    </h2>
+
+    <div class="date-card">
+
+      <div class="date-number">20</div>
+      <div class="date-month">AOÛT</div>
+
+      <p class="date-text">
+        Il y a des jours qui passent sans laisser de trace.
+        Et puis il y a ceux que l'on garde précieusement dans sa mémoire.
+        <br><br>
+        Pour moi, le <strong>20 août</strong> est devenu l'un de ces jours.
+        Une date qui mérite d'être gardée quelque part, parce qu'elle
+        représente le début d'une histoire qui compte pour moi.
+      </p>
+
+    </div>
+
+    <div class="actions">
+      <button class="secondary" onclick="goTo(1)">Retour</button>
+      <button class="primary" onclick="goTo(3)">
+        Continuer
+        <svg viewBox="0 0 24 24">
+          <path d="M5 12h14"/>
+          <path d="m13 6 6 6-6 6"/>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ================= PAGE 3 ================= -->
+
+<section class="page" data-page="3">
+  <div class="container">
+
+    <div class="eyebrow">Pourquoi toi</div>
+
+    <h2 style="font-size:clamp(45px,10vw,78px);">
+      Ce qui me plaît chez toi.
+    </h2>
+
+    <p class="subtitle">
+      Ce n'est pas une seule chose. C'est un ensemble de petits détails
+      qui font que tu es toi, et c'est justement ça que j'aime.
+    </p>
+
+    <div class="cards">
+
+      <div class="love-card" onclick="openModal(
+        'Ta présence',
+        'Il y a des personnes dont la présence change simplement l’ambiance d’un moment. Pour moi, tu fais partie de ces personnes. Même les moments les plus simples peuvent avoir une autre valeur quand tu es là.'
+      )">
+
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M4 12a8 8 0 1 0 16 0"/>
+            <path d="M4 12c2.5-4 5.5-4 8-1s5.5 3 8-1"/>
+          </svg>
+        </div>
+
+        <h3>Ta présence</h3>
+
+        <p>
+          Parce que certains moments deviennent simplement meilleurs
+          quand tu es là.
+        </p>
+
+      </div>
+
+
+      <div class="love-card" onclick="openModal(
+        'Ton sourire',
+        'Ton sourire fait partie de ces petits détails que je remarque. Il apporte quelque chose de léger aux moments ordinaires et c’est une chose que j’aime particulièrement chez toi.'
+      )">
+
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="8"/>
+            <path d="M8.5 14.5c1 1.2 2.2 1.8 3.5 1.8s2.5-.6 3.5-1.8"/>
+            <path d="M9 10h.01M15 10h.01"/>
+          </svg>
+        </div>
+
+        <h3>Ton sourire</h3>
+
+        <p>
+          Ce petit détail qui peut rendre une journée beaucoup plus belle.
+        </p>
+
+      </div>
+
+
+      <div class="love-card" onclick="openModal(
+        'Ta personnalité',
+        'Au-delà de tout ce que l’on peut voir, c’est aussi la personne que tu es qui compte. Ta façon d’être, de parler, de penser et d’exister fait partie des raisons pour lesquelles tu as une place particulière dans mon cœur.'
+      )">
+
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="8" r="3"/>
+            <path d="M5 20c.8-3.5 3.1-5 7-5s6.2 1.5 7 5"/>
+          </svg>
+        </div>
+
+        <h3>Ta personnalité</h3>
+
+        <p>
+          Parce que ce que tu es compte plus que tout le reste.
+        </p>
+
+      </div>
+
+    </div>
+
+    <div class="actions">
+      <button class="secondary" onclick="goTo(2)">Retour</button>
+      <button class="primary" onclick="goTo(4)">
+        J'ai encore quelque chose à dire
+        <svg viewBox="0 0 24 24">
+          <path d="M5 12h14"/>
+          <path d="m13 6 6 6-6 6"/>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ================= PAGE 4 ================= -->
+
+<section class="page" data-page="4">
+  <div class="container">
+
+    <div class="icon-circle">
+      <svg viewBox="0 0 24 24">
+        <path d="M20.8 8.7c0 5.5-8.8 10.3-8.8 10.3S3.2 14.2 3.2 8.7A4.7 4.7 0 0 1 12 6.4a4.7 4.7 0 0 1 8.8 2.3Z"/>
+      </svg>
+    </div>
+
+    <div class="eyebrow">Ce que je ressens</div>
+
+    <h2 style="font-size:clamp(45px,10vw,78px);">
+      Je vais être honnête.
+    </h2>
+
+    <div class="feeling-box">
+
+      <p>
+        Je pourrais chercher les phrases les plus parfaites du monde,
+        écrire des centaines de lignes et essayer de trouver les mots
+        les plus impressionnants.
+      </p>
+
+      <p>
+        Mais parfois, la simplicité est plus sincère.
+        Alors je préfère simplement te dire ce que je ressens.
+      </p>
+
+      <div class="big-line">
+        Keren, je tiens énormément à toi.
+      </div>
+
+      <p style="margin-top:30px;">
+        Tu occupes une place particulière dans mes pensées et dans mon cœur.
+        Et si j'ai créé tout ce petit univers pour toi, c'est simplement
+        parce que tu mérites plus qu'un message envoyé en quelques secondes.
+      </p>
+
+    </div>
+
+    <div class="actions">
+      <button class="secondary" onclick="goTo(3)">Retour</button>
+      <button class="primary" onclick="goTo(5)">
+        Découvrir notre histoire
+      </button>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ================= PAGE 5 ================= -->
+
+<section class="page" data-page="5">
+  <div class="container">
+
+    <div class="eyebrow">Notre histoire</div>
+
+    <h2 style="font-size:clamp(45px,10vw,78px);">
+      Quelques repères.
+    </h2>
+
+    <p class="subtitle">
+      Une histoire ne se construit pas uniquement avec de grandes choses.
+      Elle se construit aussi avec des petits moments qui deviennent
+      importants parce qu'on les partage avec la bonne personne.
+    </p>
+
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <small>20 AOÛT</small>
+        <h3>Le commencement</h3>
+        <p>
+          Une date désormais particulière pour moi.
+          Le point de départ d'une histoire que j'ai envie de continuer à écrire.
+        </p>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <small>ENSUITE</small>
+        <h3>Les petits moments</h3>
+        <p>
+          Les discussions, les rires, les messages, les souvenirs et tous
+          ces petits instants qui prennent de la valeur avec le temps.
+        </p>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <small>AUJOURD'HUI</small>
+        <h3>Ce message</h3>
+        <p>
+          Aujourd'hui, j'ai voulu prendre le temps de te dire quelque chose
+          que je ne veux pas laisser simplement dans mes pensées.
+        </p>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <small>LA SUITE</small>
+        <h3>À écrire ensemble</h3>
+        <p>
+          Les prochaines pages ne sont pas encore écrites.
+          Et c'est peut-être ça qui les rend encore plus belles.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="actions">
+      <button class="secondary" onclick="goTo(4)">Retour</button>
+      <button class="primary" onclick="goTo(6)">
+        Lire ma lettre
+      </button>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ================= PAGE 6 ================= -->
+
+<section class="page" data-page="6">
+  <div class="container">
+
+    <div class="eyebrow">Une lettre de Salomon</div>
+
+    <div class="letter">
+
+      <div class="letter-top">
+
+        <div class="icon-circle">
+          <svg viewBox="0 0 24 24">
+            <path d="M4 5h16v14H4z"/>
+            <path d="m4 7 8 6 8-6"/>
+          </svg>
+        </div>
+
+        <h2>Chère Keren,</h2>
+
+      </div>
+
+      <p>
+        Je ne sais pas si une page web peut vraiment transmettre tout ce
+        qu'une personne ressent, mais j'ai quand même voulu essayer.
+      </p>
+
+      <p>
+        Depuis le 20 août, cette date a pris une signification particulière
+        pour moi. Et plus je pense à toi, plus je réalise à quel point
+        certaines personnes peuvent prendre une place importante dans notre vie.
+      </p>
+
+      <p>
+        Keren, je veux que tu saches que je t'aime fort.
+        Pas seulement comme une phrase jolie à écrire, mais comme quelque
+        chose que j'avais vraiment envie de te dire.
+      </p>
+
+      <p>
+        J'aime les moments que nous partageons, les conversations,
+        les petits souvenirs et tout ce qui rend notre histoire différente
+        des autres.
+      </p>
+
+      <p>
+        Je ne peux pas prédire tout ce que demain nous réserve.
+        Mais je sais une chose : j'ai envie de continuer à avancer,
+        à créer de beaux souvenirs et à donner de la valeur aux moments
+        que nous partageons.
+      </p>
+
+      <p>
+        Alors si un jour tu te demandes ce que tu représentes pour moi,
+        reviens simplement sur cette page.
+      </p>
+
+      <p>
+        Tu y trouveras la réponse.
+      </p>
+
+      <div class="signature">
+        Avec tout mon cœur,<br>
+        Salomon
+      </div>
+
+    </div>
+
+    <div class="actions">
+      <button class="secondary" onclick="goTo(5)">Retour</button>
+      <button class="primary" onclick="goTo(7)">
+        Une dernière chose
+      </button>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ================= PAGE 7 ================= -->
+
+<section class="page" data-page="7">
+  <div class="container">
+
+    <div class="eyebrow">Pour la suite</div>
+
+    <h2 style="font-size:clamp(45px,10vw,78px);">
+      Je ne veux pas promettre l'impossible.
+    </h2>
+
+    <p class="subtitle">
+      Je préfère te parler de choses simples, mais sincères.
+    </p>
+
+    <div class="promise">
+
+      <div class="promise-line">
+        <strong>Être présent</strong>
+        Être là dans les bons moments et apprécier aussi les moments simples.
+      </div>
+
+      <div class="promise-line">
+        <strong>Créer des souvenirs</strong>
+        Continuer à construire des moments dont nous pourrons sourire plus tard.
+      </div>
+
+      <div class="promise-line">
+        <strong>Prendre soin de notre histoire</strong>
+        Ne jamais considérer comme banal ce qui compte vraiment.
+      </div>
+
+      <div class="promise-line">
+        <strong>Rester sincère</strong>
+        Parce qu'une belle histoire mérite des sentiments vrais et des paroles honnêtes.
+      </div>
+
+    </div>
+
+    <div class="actions">
+      <button class="secondary" onclick="goTo(6)">Retour</button>
+      <button class="primary" onclick="goTo(8)">
+        Voir la dernière page
+        <svg viewBox="0 0 24 24">
+          <path d="M5 12h14"/>
+          <path d="m13 6 6 6-6 6"/>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ================= PAGE 8 ================= -->
+
+<section class="page" data-page="8">
+  <div class="container">
+
+    <div class="eyebrow">La dernière page… pour aujourd'hui</div>
+
+    <div class="final-heart">
+      <svg viewBox="0 0 24 24">
+        <path d="M20.8 8.7c0 5.5-8.8 10.3-8.8 10.3S3.2 14.2 3.2 8.7A4.7 4.7 0 0 1 12 6.4a4.7 4.7 0 0 1 8.8 2.3Z"/>
+      </svg>
+    </div>
+
+    <div class="final-names">
+      <span class="gradient">Keren</span>
+      <span class="cross">×</span>
+      <span>Salomon</span>
+    </div>
+
+    <p class="final-message">
+      Keren, si tu es arrivée jusqu'ici, alors tu connais maintenant
+      une partie de ce que je voulais te dire.
+      <br><br>
+      Je n'ai pas créé toutes ces pages pour faire compliqué.
+      Je l'ai fait parce que tu comptes pour moi.
+    </p>
+
+    <div class="big-line">
+      Je t'aime fort. Très fort.
+    </div>
+
+    <div class="actions">
+      <button class="secondary" onclick="goTo(1)">
+        Recommencer depuis le début
+      </button>
+    </div>
+
+  </div>
+</section>
+
+</div>
+
+
+<!-- ================= NAVIGATION ================= -->
+
+<div class="nav-top">
+  <div class="brand">K × S</div>
+  <div class="page-count" id="pageCount">01 / 08</div>
+</div>
+
+<div class="progress" id="progress">
+  <div class="progress-dot active"></div>
+  <div class="progress-dot"></div>
+  <div class="progress-dot"></div>
+  <div class="progress-dot"></div>
+  <div class="progress-dot"></div>
+  <div class="progress-dot"></div>
+  <div class="progress-dot"></div>
+  <div class="progress-dot"></div>
+</div>
+
+
+<!-- ================= MODAL ================= -->
+
+<div class="modal" id="modal" onclick="closeModal(event)">
+
+  <div class="modal-card" onclick="event.stopPropagation()">
+
+    <div class="icon-circle">
+      <svg viewBox="0 0 24 24">
+        <path d="M20.8 8.7c0 5.5-8.8 10.3-8.8 10.3S3.2 14.2 3.2 8.7A4.7 4.7 0 0 1 12 6.4a4.7 4.7 0 0 1 8.8 2.3Z"/>
+      </svg>
+    </div>
+
+    <h2 id="modalTitle"></h2>
+
+    <p id="modalText"></p>
+
+    <button class="secondary modal-close" onclick="closeModal()">
+      Fermer
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   PAGE SYSTEM
+========================= */
+
+let currentPage = 1;
+const totalPages = 8;
+
+const pages = document.querySelectorAll(".page");
+const dots = document.querySelectorAll(".progress-dot");
+const pageCount = document.getElementById("pageCount");
+
+function goTo(number){
+
+  if(number < 1) number = 1;
+  if(number > totalPages) number = totalPages;
+
+  currentPage = number;
+
+  pages.forEach(page=>{
+    page.classList.remove("active");
+  });
+
+  const target = document.querySelector(
+    `.page[data-page="${number}"]`
+  );
+
+  if(target){
+    target.classList.add("active");
+    target.scrollTop = 0;
+  }
+
+  dots.forEach((dot,index)=>{
+    dot.classList.toggle(
+      "active",
+      index === number - 1
+    );
+  });
+
+  pageCount.textContent =
+    String(number).padStart(2,"0") +
+    " / " +
+    String(totalPages).padStart(2,"0");
+
+  window.scrollTo(0,0);
+}
+
+
+/* =========================
+   MODAL CARDS
+========================= */
+
+function openModal(title,text){
+
+  document.getElementById("modalTitle").textContent = title;
+  document.getElementById("modalText").textContent = text;
+
+  document.getElementById("modal").classList.add("show");
+}
+
+function closeModal(event){
+
+  if(event && event.target.id !== "modal"){
+    return;
+  }
+
+  document.getElementById("modal").classList.remove("show");
+}
+
+
+/* =========================
+   PARTICLES
+========================= */
+
+function createParticle(){
+
+  const particle = document.createElement("div");
+
+  particle.className = "particle";
+
+  particle.style.left =
+    Math.random() * 100 + "vw";
+
+  particle.style.top =
+    (90 + Math.random() * 15) + "vh";
+
+  particle.style.animationDuration =
+    (6 + Math.random() * 8) + "s";
+
+  particle.style.opacity =
+    .2 + Math.random() * .6;
+
+  document.body.appendChild(particle);
+
+  setTimeout(()=>{
+    particle.remove();
+  },15000);
+}
+
+setInterval(createParticle,650);
+
+
+/* =========================
+   KEYBOARD NAVIGATION
+========================= */
+
+document.addEventListener("keydown",(event)=>{
+
+  if(event.key === "ArrowRight"){
+    goTo(currentPage + 1);
+  }
+
+  if(event.key === "ArrowLeft"){
+    goTo(currentPage - 1);
+  }
+
+  if(event.key === "Escape"){
+    closeModal();
+  }
+
+});
+
+
+/* =========================
+   SWIPE MOBILE
+========================= */
+
+let touchStartX = 0;
+
+document.addEventListener("touchstart",(event)=>{
+  touchStartX = event.changedTouches[0].screenX;
+},{passive:true});
+
+document.addEventListener("touchend",(event)=>{
+
+  const touchEndX =
+    event.changedTouches[0].screenX;
+
+  const difference =
+    touchEndX - touchStartX;
+
+  if(Math.abs(difference) < 70) return;
+
+  if(difference < 0){
+    goTo(currentPage + 1);
+  }else{
+    goTo(currentPage - 1);
+  }
+
+},{passive:true});
+
+
+/* =========================
+   START
+========================= */
+
+goTo(1);
+
+</script>
+
+</body>
+</html>
